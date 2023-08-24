@@ -1,11 +1,9 @@
 'use strict';
 
-'use strict';
-
 (() => {
   // === DOM & VARS =======
   const DOM = {};
-
+  console.log('hello');
   // === INIT =============
   const init = () => {};
 

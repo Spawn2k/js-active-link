@@ -11,5 +11,8 @@
     "url": "js-active-link"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "sass": "^1.66.1"
+  }
 }

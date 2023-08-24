@@ -4,7 +4,7 @@
 /dist
 /tmp
 /out-tsc
-/scss
+/assets/scss/
 
 # Runtime data
 pids

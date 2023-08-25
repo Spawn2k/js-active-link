@@ -14,4 +14,6 @@ export default {
       plugins: [terser()],
     },
   ],
+
+  plugins: [scss()],
 };

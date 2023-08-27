@@ -12,25 +12,13 @@
   DOM.portfolioEl = document.querySelector('#portfolio');
   DOM.contactEl = document.querySelector('#contact');
 
-  let execute = true;
-  let direction = false;
-  let curr;
-  let prev;
-  let last = true;
+  const body = document.body;
+  let lastScroll = 0;
 
   // === INIT =============
 
   const init = () => {
-    window.onscroll = () => {
-      onScrollActiveLink();
-      let top = window.scrollY;
-      // let offset = DOM.contactEl.offsetTop;
-      let heightHome = DOM.homeEl.offsetTop;
-      let heightAbout = DOM.aboutEl.offsetTop;
-      let heightServices = DOM.servicesEl.offsetTop;
-      let heightPortfolio = DOM.portfolioEl.offsetTop;
-      let heightContact = DOM.contactEl.offsetTop;
-    };
+    window.addEventListener('scroll', onScrollActiveLink);
 
     DOM.navEl.addEventListener('click', onClickNav);
     DOM.logoEl.addEventListener('click', onClickLogo);
@@ -38,96 +26,17 @@
 
   // === EVENTHANDLER =====
 
-  const onScrollActiveLink = () => {
+  const onScrollActiveLink = (e) => {
+    navOnScrollReveal(e);
     DOM.sectionEls.forEach((section, idx) => {
       let top = window.scrollY;
       let offset = section.offsetTop - 150;
       let height = section.offsetHeight;
       let id = section.getAttribute('id');
       if (top >= offset && top < offset + height) {
-        if (section.classList.contains('about')) {
-          if (top - offset > 0 && top - (section.nextElementSibling.offsetTop - 150) < 0) {
-            // if (idx === 0) position = 0;
-
-            if (!direction) {
-              prev = DOM.navLinkEls[idx - 1];
-              curr = DOM.navLinkEls[idx];
-            } else {
-              prev = DOM.navLinkEls[idx + 1];
-              curr = DOM.navLinkEls[idx];
-            }
-
-            if (execute) {
-              moveIndicator(prev, curr);
-            }
-            execute = false;
-
-            // section.nextElementSibling.offset - 150;
-          }
-        }
-        if (section.classList.contains('services')) {
-          if (top - offset > 0 && top - (section.nextElementSibling.offsetTop - 150) < 0) {
-            // moveIndicator(DOM.navLinkEls[idx - 1], DOM.navLinkEls[idx]);
-
-            if (direction) {
-              prev = DOM.navLinkEls[idx - 1];
-              curr = DOM.navLinkEls[idx];
-            } else {
-              prev = DOM.navLinkEls[idx + 1];
-              curr = DOM.navLinkEls[idx];
-            }
-
-            if (!execute) {
-              moveIndicator(prev, curr);
-            }
-            execute = true;
-            direction = true;
-          }
-        }
-
-        if (section.classList.contains('Portfolio')) {
-          if (top - offset > 0 && top - (section.nextElementSibling.offsetTop - 150) < 0) {
-            // moveIndicator(DOM.navLinkEls[idx - 1], DOM.navLinkEls[idx]);
-            if (direction && last) {
-              prev = DOM.navLinkEls[idx - 1];
-              curr = DOM.navLinkEls[idx];
-            } else {
-              prev = DOM.navLinkEls[idx + 1];
-              curr = DOM.navLinkEls[idx];
-            }
-            if (!last) {
-              console.log('fase');
-              prev = DOM.navLinkEls[idx + 1];
-              curr = DOM.navLinkEls[idx];
-              last = true;
-            }
-            if (execute) {
-              moveIndicator(prev, curr);
-            }
-            console.log('port');
-            execute = false;
-            direction = false;
-          }
-        }
-        if (section.classList.contains('contact')) {
-          if (top - offset > 0) {
-            // moveIndicator(DOM.navLinkEls[idx - 1], DOM.navLinkEls[idx]);
-            // console.log('log');
-            if (!direction) {
-              prev = DOM.navLinkEls[idx - 1];
-              curr = DOM.navLinkEls[idx];
-            } else {
-              prev = DOM.navLinkEls[idx - 1];
-              curr = DOM.navLinkEls[idx];
-            }
-
-            if (!execute) {
-              moveIndicator(prev, curr);
-            }
-            execute = true;
-            direction = true;
-            last = false;
-          }
+        if (idx === 1) {
+          // console.log(oldTab);
+          // moveIndicator(oldTab, DOM.navLinkEls[idx]);
         }
 
         DOM.navLinkEls.forEach((link) => {
@@ -139,11 +48,15 @@
   };
 
   const onClickNav = (e) => {
+    // window.removeEventListener('scroll', onScrollActiveLink);
+    // e.preventDefault();
     const oldTab = DOM.navEl.querySelector('.active');
     const currentTab = e.target;
+
     if (currentTab.tagName.toLowerCase() !== 'a') return;
 
     moveIndicator(oldTab, currentTab);
+    // currentTab.classList.add('active');
   };
 
   const onClickLogo = () => {
@@ -155,7 +68,7 @@
 
   // === FUNCTIONS ========
 
-  const moveIndicator = (oldTab, newTab, position = 4) => {
+  const moveIndicator = (oldTab, newTab) => {
     const newTabPosition = oldTab.compareDocumentPosition(newTab);
     const newTabWidth = newTab.offsetWidth / DOM.navEl.offsetWidth;
     let transistionWidth;
@@ -173,6 +86,23 @@
       DOM.navEl.style.setProperty('--_left', newTab.offsetLeft + 'px');
       DOM.navEl.style.setProperty('--_width', newTabWidth);
     }, 220);
+  };
+
+  const navOnScrollReveal = (e) => {
+    const currentScroll = window.pageYOffset;
+    if (currentScroll <= 0) {
+      body.classList.remove('scroll-up');
+      return;
+    }
+
+    if (currentScroll > lastScroll && !body.classList.contains('scroll-down')) {
+      body.classList.remove('scroll-up');
+      body.classList.add('scroll-down');
+    } else if (currentScroll < lastScroll && body.classList.contains('scroll-down')) {
+      body.classList.remove('scroll-down');
+      body.classList.add('scroll-up');
+    }
+    lastScroll = currentScroll;
   };
 
   init();

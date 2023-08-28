@@ -1,0 +1,134 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+:root {
+  --transition-duration: 0.3s;
+}
+
+*,
+html {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+  font-size: 1rem;
+  position: relative;
+  width: 100%;
+  font-family: Poppins, "sans-serif";
+  background-color: #1f242d;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sec-nav {
+  width: 50rem;
+  margin: auto;
+}
+.sec-nav .nav {
+  margin: 5rem 0 1rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+.sec-nav .nav button {
+  color: white;
+  background-color: transparent;
+  border: none;
+  font-size: 1.5rem;
+}
+
+.popover-container {
+  width: 50rem;
+  margin: auto;
+  background-color: lightblue;
+  position: relative;
+}
+.popover-container .popover {
+  transform-origin: center -20px;
+  transform-origin: 0 0;
+  position: absolute;
+}
+.popover-container .popover .content {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.popover-container .popover .content .section-react ul {
+  padding: 1rem;
+  width: 30rem;
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  flex-direction: column;
+}
+.popover-container .popover .content .section-react ul li {
+  flex-basis: 33%;
+}
+.popover-container .popover .content .section-react ul li h3 {
+  margin-bottom: 0.5rem;
+}
+.popover-container .popover .content .section-react ul li ul {
+  padding: 0 0 0 1rem;
+  margin: 0;
+  width: 100%;
+}
+.popover-container .popover .content .section-js {
+  width: 50rem;
+  height: 30rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+.popover-container .popover .content .section-js ul {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.popover-container .popover .content .section-js ul li h3 {
+  text-align: center;
+}
+.popover-container .popover .content .section-md {
+  width: fit-content;
+  padding: 1rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.popover-container .popover .content .section-md h2 {
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+.popover-container .popover .content .section-md ul li {
+  margin-bottom: 0.5rem;
+}
+.popover-container .background {
+  transform-origin: 0 0;
+  width: 100px;
+  height: 100px;
+  background-color: #fff;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: left var(--transition-duration), transform var(--transition-duration), opacity var(--transition-duration);
+  z-index: -1;
+}
+
+/*# sourceMappingURL=stripe.css.map */

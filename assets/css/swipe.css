@@ -1,43 +1,38 @@
-@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,600");
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
 :root {
-  --padding: 16px 32px;
   --transition-duration: 0.3s;
-  --products-width: 590px;
-  --products-height: 280px;
-  --developers-width: 390px;
-  --developers-height: 266px;
-  --company-width: 290px;
-  --company-height: 296px;
 }
 
 * {
   box-sizing: border-box;
-  font-family: "Open Sans", sans-serif;
 }
 
 body {
   min-height: 100vh;
-  font-family: "Open Sans", sans-serif;
-  background: linear-gradient(-45deg, #19c5fe, #4553ff);
-  padding: 20px;
+  background-color: #1f242d;
+  margin: 0;
 }
 
 /* Root element */
 .header {
+  margin: 5rem 0 0 0;
   perspective: 2000px;
+}
+.header nav.nav {
+  width: 50rem;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0.5rem;
 }
 
 /* Top nav ----------------------------- */
-.nav {
-  display: flex;
-}
-
 .nav-link {
   height: 50px;
   padding: 0 25px;
   line-height: 50px;
   border: 0;
-  font-size: 16px;
+  font-size: 2rem;
   color: white;
   background: none;
   font-weight: 500;
@@ -58,7 +53,6 @@ body {
   transform-origin: center -20px;
   transform: rotateX(-15deg);
   transition: transform var(--transition-duration), opacity var(--transition-duration);
-  background: red;
   display: inline-block;
 }
 
@@ -86,11 +80,10 @@ body {
   position: absolute;
   top: 0;
   left: 0;
-  width: var(--products-width);
-  height: var(--products-height);
+  width: 100px;
+  height: 100px;
   padding: var(--padding);
   background: white;
-  border-radius: 6px;
   box-shadow: 0 50px 100px -20px rgba(50, 50, 93, 0.25), 0 30px 60px -30px rgba(0, 0, 0, 0.3);
   transform-origin: 0 0;
   transition: transform var(--transition-duration), opacity var(--transition-duration);
@@ -102,7 +95,6 @@ body {
   z-index: 1;
   top: 0;
   left: 0;
-  padding: var(--padding);
   transition: transform var(--transition-duration), opacity var(--transition-duration);
 }
 
@@ -118,14 +110,8 @@ body {
 }
 
 /* Products Popover ----------------------------- */
-.section-products {
-  width: var(--products-width);
-  height: var(--products-height);
-}
-
 .navlist-primary li {
   display: flex;
-  padding: 16px 0;
 }
 
 .circle {
@@ -185,11 +171,6 @@ body {
 }
 
 /* Developers Popover --------------------------------- */
-.section-developers {
-  width: var(--developers-width);
-  height: var(--developers-height);
-}
-
 .section-developers .navlist {
   margin-top: 10px;
 }
@@ -224,19 +205,10 @@ h4 {
 }
 
 /* Company Popover ------------------------------------ */
-.section-company {
-  width: var(--company-width);
-  height: var(--company-height);
-}
-
 .navlist {
   color: #6772e5;
   text-transform: uppercase;
   font-weight: 600;
-}
-
-.navlist li {
-  padding: 8px 0;
 }
 
 .navlist .feather {
@@ -244,6 +216,12 @@ h4 {
   top: 6px;
   width: 18px;
   margin-right: 12px;
+}
+
+.navlist-primary {
+  white-space: nowrap;
+  margin: 0;
+  padding: 0;
 }
 
 /*# sourceMappingURL=swipe.css.map */

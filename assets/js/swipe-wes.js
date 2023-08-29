@@ -41,6 +41,7 @@
 
     DOM.bgDropDown.style.setProperty('width', coords.width + 'px');
     DOM.bgDropDown.style.setProperty('height', coords.height + 'px');
+
     DOM.bgDropDown.style.setProperty('transform', `translate(${coords.left}px ,${coords.top}px)`);
   };
   const onMouseLeaveLi = (e) => {
@@ -48,6 +49,7 @@
     liEl.classList.remove('trigger-enter', 'trigger-enter-active');
 
     DOM.bgDropDown.classList.remove('open');
+    console.log('leave');
   };
 
   // === XHR/FETCH ========

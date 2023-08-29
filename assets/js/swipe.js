@@ -25,44 +25,101 @@ navLinkEls.forEach((navLink) => {
   dimensions[section].arrowX = rect.left + rect.width / 2 - popoverLeft;
 });
 
+const onLoad = (e) => {
+  const productsPos = sectionEls[0].getBoundingClientRect();
+  const navLinkElsPos = navLinkEls[0].getBoundingClientRect();
+
+  const productsCoord = {
+    left: productsPos.left,
+    top: productsPos.top,
+    width: productsPos.width,
+    height: productsPos.height,
+  };
+
+  const navLinkElsCoord = {
+    width: navLinkElsPos.width,
+    height: navLinkElsPos.height,
+    left: navLinkElsPos.left,
+    top: navLinkElsPos.top,
+  };
+
+  backgroundEl.style.transform = `
+  translateX(${navLinkElsCoord.left}px)
+  scaleX(${productsCoord.width / 100})
+  scaleY(${productsCoord.height / 100})
+`;
+
+  contentEl.style.width = productsCoord.width + 'px';
+  contentEl.style.height = productsCoord.height + 'px';
+
+  contentEl.style.transform = `translateX(${navLinkElsCoord.left}px)`;
+  console.log('load');
+};
+
+window.addEventListener('load', onLoad);
+
 // Set initial arrow position
 arrowEl.style.transform = `
   translateX(${dimensions.products.arrowX}px)
   rotate(45deg)`;
 
-function showSection(section) {
+function showSection(section, idx) {
   popoverEl.classList.add('open');
   sectionEls.forEach((el) => el.classList.remove('active'));
   document.querySelector(`.section-${section}`).classList.add('active');
 
+  const productsPos = sectionEls[idx].getBoundingClientRect();
+  const navLinkElsPos = navLinkEls[idx].getBoundingClientRect();
+
+  const productsCoord = {
+    left: productsPos.left,
+    top: productsPos.top,
+    width: productsPos.width,
+    height: productsPos.height,
+  };
+
+  const navLinkElsCoord = {
+    width: navLinkElsPos.width,
+    height: navLinkElsPos.height,
+    left: navLinkElsPos.left,
+    top: navLinkElsPos.top,
+  };
+
   // Position arrow
   arrowEl.style.transform = `
-    translateX(${dimensions[section].arrowX}px)
+    translateX(${navLinkElsCoord.width / 2 + navLinkElsCoord.left}px)
     rotate(45deg)`;
 
   // Resize and position background
   backgroundEl.style.transform = `
-    translateX(${dimensions[section].x}px)
-    scaleX(${dimensions[section].width / dimensions['products'].width})
-    scaleY(${dimensions[section].height / dimensions['products'].height})
+    translateX(${navLinkElsCoord.left}px)
+    scaleX(${productsCoord.width / 100})
+    scaleY(${productsCoord.height / 100})
   `;
+  // backgroundEl.style.transform = `
+  //   translateX(${dimensions[section].x}px)
+  //   scaleX(${dimensions[section].width / dimensions['products'].width})
+  //   scaleY(${dimensions[section].height / dimensions['products'].height})
+  // `;
 
   // Resize and position content
-  contentEl.style.width = dimensions[section].width + 'px';
-  contentEl.style.height = dimensions[section].height + 'px';
+  contentEl.style.width = productsCoord.width + 'px';
+  contentEl.style.height = productsCoord.height + 'px';
 
-  contentEl.style.transform = `translateX(${dimensions[section].x}px)`;
+  contentEl.style.transform = `translateX(${navLinkElsCoord.left}px)`;
 
   // size container? If we remove from CSS and do everything dynamically.
 }
 
-navLinkEls.forEach((navLink) => {
+navLinkEls.forEach((navLink, idx) => {
   navLink.addEventListener('mouseenter', (event) => {
     let targetPopover = event.target.getAttribute('data-nav');
-    showSection(targetPopover);
+
+    showSection(targetPopover, idx);
   });
 });
 
 headerEl.addEventListener('mouseleave', () => {
+  console.log('leave');
   popoverEl.classList.remove('open');
 });

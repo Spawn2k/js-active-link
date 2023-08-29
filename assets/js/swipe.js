@@ -19,11 +19,7 @@ const dimensions = {
 
 const popoverLeft = popoverEl.getBoundingClientRect().x;
 
-navLinkEls.forEach((navLink) => {
-  let section = navLink.getAttribute('data-nav');
-  let rect = navLink.getBoundingClientRect();
-  dimensions[section].arrowX = rect.left + rect.width / 2 - popoverLeft;
-});
+navLinkEls.forEach((navLink) => {});
 
 const onLoad = (e) => {
   const productsPos = sectionEls[0].getBoundingClientRect();
@@ -63,11 +59,10 @@ arrowEl.style.transform = `
   translateX(${dimensions.products.arrowX}px)
   rotate(45deg)`;
 
-function showSection(section, idx) {
+function showSection(idx) {
   popoverEl.classList.add('open');
   sectionEls.forEach((el) => el.classList.remove('active'));
-  document.querySelector(`.section-${section}`).classList.add('active');
-
+  sectionEls[idx].classList.add('active');
   const productsPos = sectionEls[idx].getBoundingClientRect();
   const navLinkElsPos = navLinkEls[idx].getBoundingClientRect();
 
@@ -85,9 +80,26 @@ function showSection(section, idx) {
     top: navLinkElsPos.top,
   };
 
+  // backgroundEl.style.transition = `0s`;
+
+  let arrowPos = navLinkElsCoord.width / 2 + navLinkElsCoord.left;
+
+  if (idx === 1) {
+    const jsCenter = navLinkElsCoord.width / 2;
+    const contentCenter = productsCoord.width / 2;
+    navLinkElsCoord.left = navLinkElsCoord.left + jsCenter - contentCenter;
+    arrowPos = navLinkElsCoord.left + contentCenter;
+  }
+
+  if (idx === 2) {
+    console.log('idx2');
+    let left = navLinkElsCoord.width + navLinkElsCoord.left - productsCoord.width;
+    navLinkElsCoord.left = left;
+  }
+
   // Position arrow
   arrowEl.style.transform = `
-    translateX(${navLinkElsCoord.width / 2 + navLinkElsCoord.left}px)
+    translateX(${arrowPos}px)
     rotate(45deg)`;
 
   // Resize and position background
@@ -113,9 +125,7 @@ function showSection(section, idx) {
 
 navLinkEls.forEach((navLink, idx) => {
   navLink.addEventListener('mouseenter', (event) => {
-    let targetPopover = event.target.getAttribute('data-nav');
-
-    showSection(targetPopover, idx);
+    showSection(idx);
   });
 });
 

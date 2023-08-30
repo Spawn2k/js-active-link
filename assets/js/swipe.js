@@ -48,6 +48,10 @@ const onLoad = (e) => {
   contentEl.style.width = productsCoord.width + 'px';
   contentEl.style.height = productsCoord.height + 'px';
 
+  arrowEl.style.transform = `
+  translateX(${navLinkElsCoord.width / 2 + navLinkElsCoord.left}px)
+  rotate(45deg)`;
+
   contentEl.style.transform = `translateX(${navLinkElsCoord.left}px)`;
   console.log('load');
 };

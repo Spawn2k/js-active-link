@@ -1,0 +1,89 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+*,
+html {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+  font-size: 1rem;
+  position: relative;
+  width: 100%;
+  font-family: Poppins, "sans-serif";
+  background-color: #1f242d;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Products Popover ----------------------------- */
+.section-react {
+  width: 50rem;
+  margin: auto;
+  padding: 1rem;
+  background-color: #fff;
+  margin-top: 10rem;
+  position: relative;
+  display: flex;
+  height: 22rem;
+}
+.section-react .title {
+  flex-basis: 30%;
+  position: relative;
+  z-index: 2;
+}
+.section-react .title ul {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-evenly;
+  align-items: stretch;
+  padding-left: 1rem;
+}
+.section-react .title ul li {
+  cursor: pointer;
+}
+.section-react .content-wraper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: tomato;
+}
+.section-react .content-wraper ul li {
+  padding: 1rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.section-react .title-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  background-color: lightblue;
+  z-index: -1;
+  transition: all 0.3s;
+}
+
+/* Developers Popover --------------------------------- */
+
+/*# sourceMappingURL=card.css.map */

@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rollup --config"
+    "build": "rollup --config",
+    "sass": "sass assets/scss/card.scss:assets/css/card.css -w --style=expanded"
   },
   "repository": {
     "type": "git",

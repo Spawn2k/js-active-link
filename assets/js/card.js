@@ -10,13 +10,14 @@
   DOM.sectionEl = document.querySelector('.section');
   DOM.h3El = Array.from(document.querySelectorAll('h3'));
   DOM.svgEl = document.querySelector('svg');
-
   DOM.contentTextEls = document.querySelectorAll('.content-text');
   console.log(DOM);
 
   let rotate = 0;
   // === INIT =============
   const init = () => {
+    window.addEventListener('load', onLoad);
+
     DOM.h3El.forEach((h3, idx) => {
       h3.addEventListener('click', (e) => onClickh3(e, idx));
     });
@@ -61,68 +62,83 @@
   const onClickh3 = (e, idx) => {
     const currEl = e.currentTarget;
 
-    const contentTextPos = DOM.contentTextEls[idx].getBoundingClientRect();
+    const oldEl = DOM.h3El.indexOf(document.querySelector('.rotate'));
+
+    setPositionContent(idx);
+
+    if (oldEl < idx) {
+      rotate -= 360;
+    } else {
+      rotate += 360;
+    }
+
+    DOM.h3El.forEach((h3) => h3.classList.remove('rotate'));
+    currEl.classList.add('rotate');
+
+    DOM.svgEl.style.transform = `rotate(${rotate}deg)`;
+
+    getPosTitleBg(currEl, idx);
+  };
+
+  const onLoad = (e) => {
+    const startEl = DOM.h3El[0];
+    getPosTitleBg(startEl, 0);
+  };
+
+  // === XHR/FETCH ========
+
+  // === FUNCTIONS ========
+
+  const getPosTitleBg = (currEl, idx) => {
+    // const contentTextPos = DOM.contentTextEls[idx].getBoundingClientRect();
     const currElCoord = currEl.getBoundingClientRect();
 
     const coord = {
       width: currElCoord.width + 16,
       height: currElCoord.height + 59,
       top: currEl.offsetTop - 27.5,
-      left: currEl.offsetLeft - 16,
+      left: currEl.offsetLeft - 15,
     };
-    // const pos = DOM.divEls[0].getBoundingClientRect();
-
-    // DOM.svgEl.classList.remove('rotate');
-    // DOM.svgEl.style.transform = `rotate(0deg)`;
-
-    // const oldEl = DOM.h3El.indexOf(document.querySelector('.rotate'));
-    // DOM.h3El.forEach((h3) => h3.classList.remove('rotate', 'active'));
-    // currEl.classList.add('active');
-
-    // if (oldEl < idx) {
-    //   rotate -= 360;
-    // } else {
-    //   rotate += 360;
-    // }
-
-    // const coord = {
-    //   width: pos.width,
-    //   height: pos.height,
-    //   top: pos.top,
-    //   left: pos.left,
-    // };
-
-    // const titleBgPos = [
-    //   {
-    //     x: 0,
-    //     y: 0,
-    //   },
-    //   {
-    //     x: 0,
-    //     y: coord.height,
-    //   },
-    //   {
-    //     x: 0,
-    //     y: coord.height * 2,
-    //   },
-    // ];
-
-    // DOM.titleBgEl.style.transform = `translate(${titleBgPos[idx].x}px,${titleBgPos[idx].y}px)`;
 
     DOM.titleBgEl.style.width = `${coord.width}px`;
     DOM.titleBgEl.style.height = `${coord.height}px`;
-
     DOM.titleBgEl.style.transform = `translate(${coord.left}px, ${coord.top}px)`;
-
-    // DOM.svgEl.style.transform = `rotate(${rotate * 360}deg)`;
-    // DOM.svgEl.classList.add('rotate');
-
-    console.log(currEl.offsetTop);
   };
 
-  // === XHR/FETCH ========
+  const setPositionContent = (idx) => {
+    if (idx === 0) {
+      DOM.contentTextEls[idx].classList.add('active-text');
+      DOM.contentTextEls[idx].classList.remove('reset-text');
 
-  // === FUNCTIONS ========
+      DOM.contentTextEls[1].classList.add('reset-up');
+      DOM.contentTextEls[1].classList.remove('active-text', 'reset-down');
+
+      DOM.contentTextEls[2].classList.remove('active-text');
+      DOM.contentTextEls[2].classList.add('reset-up');
+    }
+
+    if (idx === 1) {
+      DOM.contentTextEls[0].classList.add('reset-text');
+      DOM.contentTextEls[0].classList.remove('active-text');
+
+      DOM.contentTextEls[idx].classList.add('active-text');
+      DOM.contentTextEls[idx].classList.remove('reset-up', 'reset-down');
+
+      DOM.contentTextEls[2].classList.remove('active-text');
+      DOM.contentTextEls[2].classList.add('reset-up');
+    }
+
+    if (idx === 2) {
+      DOM.contentTextEls[0].classList.add('reset-text');
+      DOM.contentTextEls[0].classList.remove('active-text');
+
+      DOM.contentTextEls[1].classList.add('reset-down');
+      DOM.contentTextEls[1].classList.remove('active-text', 'reset-up');
+
+      DOM.contentTextEls[idx].classList.remove('reset-up');
+      DOM.contentTextEls[idx].classList.add('active-text');
+    }
+  };
 
   init();
 })();

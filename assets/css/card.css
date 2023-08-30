@@ -63,15 +63,80 @@ ul {
   position: relative;
   width: 100%;
   height: 100%;
-  background-color: tomato;
+  background-color: lightcoral;
+  border: 1px solid #1f242d;
+  z-index: 1;
 }
-.section-react .content-wraper ul li {
+.section-react .content-wraper ul li:nth-child(1) {
   padding: 1rem;
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
+  transform: translate(0%, 0%);
+  transition: all 0.3s ease-out;
+  z-index: 1;
+  opacity: 1;
+}
+.section-react .content-wraper ul li:nth-child(1).reset-text {
+  transition: all 0.2s;
+  opacity: 0;
+  transform: translate(0px, 10%);
+}
+.section-react .content-wraper ul li:nth-child(1).active-text {
+  transition: all 0.3s;
+  opacity: 1;
+  transform: translate(0%, 0%);
+}
+.section-react .content-wraper ul li:nth-child(2) {
+  padding: 1rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform: translate(0%, -10%);
+  transition: all 0.3s ease-out;
+  z-index: 0;
+  opacity: 0;
+}
+.section-react .content-wraper ul li:nth-child(2).active-text {
+  transition: all 0.3s;
+  opacity: 1;
+  transform: translate(0%, 0%);
+}
+.section-react .content-wraper ul li:nth-child(2).reset-up {
+  transition: all 0.2s;
+  opacity: 0;
+  transform: translate(0%, -10%);
+}
+.section-react .content-wraper ul li:nth-child(2).reset-down {
+  transition: all 0.2s;
+  opacity: 0;
+  transform: translate(0%, 10%);
+}
+.section-react .content-wraper ul li:nth-child(3) {
+  padding: 1rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform: translate(0%, -10%);
+  transition: all 0.3s ease-out;
+  z-index: 0;
+  opacity: 0;
+}
+.section-react .content-wraper ul li:nth-child(3).active-text {
+  transition: all 0.3s;
+  opacity: 1;
+  transform: translate(0%, 0%);
+}
+.section-react .content-wraper ul li:nth-child(3).reset-up {
+  transition: all 0.2s;
+  opacity: 0;
+  transform: translate(0%, -10%);
 }
 .section-react .title-bg {
   position: absolute;
@@ -79,8 +144,32 @@ ul {
   left: 0;
   width: 0;
   height: 0;
-  background-color: lightblue;
+  background-color: lightcoral;
   z-index: -1;
+  transition: all 0.3s;
+  border-radius: 10px 0 0 10px;
+  border-top: 1px solid #1f242d;
+  border-left: 1px solid #1f242d;
+  border-bottom: 1px solid #1f242d;
+  border-right: 1px solid lightcoral;
+}
+.section-react .title-bg .svg-container {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  transform: translate(-50%, 50%);
+  background-color: transparent;
+  border-radius: 50%;
+  padding: 0.3rem;
+  border: 2px solid white;
+}
+.section-react .title-bg .svg-container svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  fill: #61dbfb;
   transition: all 0.3s;
 }
 

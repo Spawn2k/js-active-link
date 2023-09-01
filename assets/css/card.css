@@ -1,4 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+:root {
+  --out: 0.3s;
+  --in: 0.3s;
+}
+
 *,
 html {
   box-sizing: border-box;
@@ -63,9 +68,26 @@ ul {
   position: relative;
   width: 100%;
   height: 100%;
-  background-color: lightcoral;
+  background-color: rgb(236, 236, 236);
   border: 1px solid #1f242d;
   z-index: 1;
+}
+.section-react .content-wraper ul li {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+.section-react .content-wraper ul li figure {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 1rem;
+}
+.section-react .content-wraper ul li figure img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 .section-react .content-wraper ul li:nth-child(1) {
   padding: 1rem;
@@ -75,19 +97,18 @@ ul {
   width: 100%;
   height: 100%;
   transform: translate(0%, 0%);
-  transition: all 0.3s ease-out;
+  transition: all var(--out) ease-out;
   z-index: 1;
-  opacity: 1;
 }
 .section-react .content-wraper ul li:nth-child(1).reset-text {
-  transition: all 0.2s;
-  opacity: 0;
-  transform: translate(0px, 10%);
+  transition: all 0.2s ease-in-out;
+  transform: translate(0px, 6%);
+  animation: resetOpacity var(--in) forwards;
 }
 .section-react .content-wraper ul li:nth-child(1).active-text {
-  transition: all 0.3s;
-  opacity: 1;
+  transition: all var(--out) ease-out;
   transform: translate(0%, 0%);
+  animation: activeOpacity var(--out) forwards;
 }
 .section-react .content-wraper ul li:nth-child(2) {
   padding: 1rem;
@@ -96,25 +117,25 @@ ul {
   left: 0;
   width: 100%;
   height: 100%;
-  transform: translate(0%, -10%);
-  transition: all 0.3s ease-out;
+  transform: translate(0%, -6%);
+  transition: all var(--out) ease-out;
   z-index: 0;
   opacity: 0;
 }
 .section-react .content-wraper ul li:nth-child(2).active-text {
-  transition: all 0.3s;
-  opacity: 1;
+  transition: all var(--out) ease-out;
+  animation: activeOpacity var(--out) forwards;
   transform: translate(0%, 0%);
 }
 .section-react .content-wraper ul li:nth-child(2).reset-up {
-  transition: all 0.2s;
-  opacity: 0;
-  transform: translate(0%, -10%);
+  transition: all 0.2s ease-in-out;
+  animation: resetOpacity var(--out) forwards;
+  transform: translate(0%, -6%);
 }
 .section-react .content-wraper ul li:nth-child(2).reset-down {
-  transition: all 0.2s;
-  opacity: 0;
-  transform: translate(0%, 10%);
+  transition: all 0.2s ease-in-out;
+  animation: resetOpacity var(--out) forwards;
+  transform: translate(0%, 6%);
 }
 .section-react .content-wraper ul li:nth-child(3) {
   padding: 1rem;
@@ -123,20 +144,20 @@ ul {
   left: 0;
   width: 100%;
   height: 100%;
-  transform: translate(0%, -10%);
-  transition: all 0.3s ease-out;
+  transform: translate(0%, -6%);
+  transition: all var(--out) ease-out;
   z-index: 0;
   opacity: 0;
 }
 .section-react .content-wraper ul li:nth-child(3).active-text {
-  transition: all 0.3s;
-  opacity: 1;
+  transition: all var(--out) ease-out;
+  animation: activeOpacity var(--out) forwards;
   transform: translate(0%, 0%);
 }
 .section-react .content-wraper ul li:nth-child(3).reset-up {
-  transition: all 0.2s;
-  opacity: 0;
-  transform: translate(0%, -10%);
+  transition: all 0.2s ease-in-out;
+  animation: resetOpacity var(--out) forwards;
+  transform: translate(0%, -6%);
 }
 .section-react .title-bg {
   position: absolute;
@@ -144,35 +165,71 @@ ul {
   left: 0;
   width: 0;
   height: 0;
-  background-color: lightcoral;
+  background-color: rgb(236, 236, 236);
   z-index: -1;
-  transition: all 0.3s;
+  transition: all var(--out);
   border-radius: 10px 0 0 10px;
   border-top: 1px solid #1f242d;
   border-left: 1px solid #1f242d;
   border-bottom: 1px solid #1f242d;
-  border-right: 1px solid lightcoral;
+  border-right: 1px solid rgb(236, 236, 236);
 }
 .section-react .title-bg .svg-container {
   position: absolute;
-  top: 0;
+  top: 50%;
   left: 100%;
-  transform: translate(-50%, 50%);
+  transform: translate(-50%, -50%);
   background-color: transparent;
-  border-radius: 50%;
-  padding: 0.3rem;
-  border: 2px solid white;
 }
 .section-react .title-bg .svg-container svg {
-  width: 1.5rem;
-  height: 1.5rem;
+  width: 1.7rem;
+  height: 1.7rem;
   display: flex;
   justify-content: center;
   align-items: center;
   fill: #61dbfb;
-  transition: all 0.3s;
+  transition: all 0.4s;
 }
 
-/* Developers Popover --------------------------------- */
+@keyframes resetOpacity {
+  0% {
+    opacity: 1;
+  }
+  25% {
+    opacity: 0.6;
+  }
+  35% {
+    opacity: 0.4;
+  }
+  55% {
+    opacity: 0;
+  }
+  85% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes activeOpacity {
+  0% {
+    opacity: 0;
+  }
+  35% {
+    opacity: 0;
+  }
+  45% {
+    opacity: 0.4;
+  }
+  65% {
+    opacity: 0.6;
+  }
+  85% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 1;
+  }
+}
 
 /*# sourceMappingURL=card.css.map */

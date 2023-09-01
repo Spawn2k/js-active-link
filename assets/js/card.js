@@ -3,11 +3,8 @@
 (() => {
   // === DOM & VARS =======
   const DOM = {};
-  DOM.divEls = document.querySelectorAll('.react-content');
-  DOM.pEls = document.querySelectorAll('.react-content p');
   DOM.titleBgEl = document.querySelector('.title-bg');
   DOM.bgEl = document.querySelector('.content-bg');
-  DOM.sectionEl = document.querySelector('.section');
   DOM.h3El = Array.from(document.querySelectorAll('h3'));
   DOM.svgEl = document.querySelector('svg');
   DOM.contentTextEls = document.querySelectorAll('.content-text');

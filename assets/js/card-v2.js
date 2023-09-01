@@ -3,126 +3,100 @@
 (() => {
   // === DOM & VARS =======
   const DOM = {};
-  DOM.buttonEls = document.querySelectorAll('.preview-element');
-  DOM.sliderContentEls = document.querySelectorAll('.slider-content');
   DOM.videoEl = document.querySelectorAll('video');
-  DOM.titleContainerEls = document.querySelectorAll('preview-element');
-  DOM.processEl = document.querySelector('.process');
-  const activeClass = 'active';
-  const previewClass = 'preview';
-  let activeId = null;
-  // let timer = startTimer();
-  let start = 0;
+  DOM.titleContainerEls = document.querySelectorAll('.preview-element');
+  DOM.processEl = document.querySelectorAll('.progress-bar');
+  let activeId = 1;
 
   // === INIT =============
   const init = () => {
-    DOM.buttonEls.forEach((button, idx) => {
-      button.addEventListener('click', (e) => onClick(e.target.dataset.slide, idx));
+    DOM.titleContainerEls.forEach((title) => {
+      const slideId = Number(title.dataset.slide);
+      title.addEventListener('click', (e) => onClick(e, slideId));
     });
 
-    DOM.titleContainerEls.forEach((title, idx) => (e) => {
-      title.addEventListener('click', onClick(e.target.dataset.slide, idx));
-    });
-
-    DOM.videoEl.forEach((video) => {
-      video.addEventListener('loadedmetadata', (e) => {
-        // console.log(video.duration);
-      });
-
+    DOM.videoEl.forEach((video, idx) => {
       video.addEventListener('timeupdate', (e) => {
-        const percent = (100 / DOM.videoEl[0].duration) * DOM.videoEl[0].currentTime;
-        console.log(percent);
-        DOM.processEl.style.setProperty('--percent', percent - 5.5 + '%');
+        const percentGym = (100 / DOM.videoEl[idx].duration) * DOM.videoEl[idx].currentTime;
+        DOM.processEl[idx].style.setProperty('--percent', percentGym - 5.5 + '%');
       });
     });
   };
 
   // === EVENTHANDLER =====
 
-  const onClick = (slideId, idx) => {
-    const video = document.querySelector(`[data-slide="${slideId}"]`);
-
-    if (activeId === slideId) {
-      return;
+  const onClick = (e, slideId) => {
+    const currEl = e.target;
+    if (currEl.classList.contains('active')) {
+      if (activeId === slideId) {
+        return;
+      }
     }
 
-    // if (video.currentTime > 35) {
-    // }
+    removeActiveControl(currEl, slideId);
 
-    // if (video.currentTime > 0 && idx === 0) return;
+    if (currEl.classList.contains('preview-element')) {
+      setActiveControl(currEl, slideId);
+    }
 
-    // activeId = slideId;
-    // removeActiveSlide(slideId);
-    // setNextSlidePreview(slideId);
-    // removeActiveBtn();
-    // addActiveBtn(slideId);
-    // removeActiveButton();
-    // addActiveButton(slideId);
-    // clearInterval(timer);
-    // timer = startTimer();
+    pausePrevVideo(currEl);
 
-    // video.currentTime = 0;
-    // video.pause();
+    if (currEl.classList.contains('preview-element')) {
+      activeId = slideId;
+    }
 
-    // console.log(video.currentTime);
+    playVideo(currEl, slideId);
+
+    puseVideo(currEl, slideId);
   };
 
   // === XHR/FETCH ========
 
   // === FUNCTIONS ========
-  function startTimer() {
-    return setInterval(() => {
-      const nextButton = getActiveButton().nextElementSibling || document.querySelector('.preview-element');
-      if (nextButton) {
-        onClick(nextButton.dataset.slide);
-      }
-    }, 5000);
-  }
 
-  const setActiveSlide = (id) => {
-    const activeSlide = document.querySelector(`#slider-${id}`);
-    activeSlide.classList.add(activeClass);
+  const playVideo = (el, slideId) => {
+    const playBtn = el.dataset.play;
+    const isActive = el.parentElement.parentElement.classList.contains('active');
+    if (!isActive || !playBtn) return;
+
+    const videoEl = document.querySelector(`[data-video="${slideId}"]`);
+    if (!videoEl) return;
+    videoEl.play();
   };
 
-  const removeActiveSlide = (id) => {
-    const activeSlide = document.querySelector('.slider-content.active');
-    activeSlide.classList.remove(activeClass);
+  const removeActiveControl = (el, slideId) => {
+    const activeEl = document.querySelector('.preview-element.active');
+    const slideEl = document.querySelector(`#slider-${activeId}`);
+    if (!activeEl || !checkEl(el)) return;
+    activeEl.classList.remove('active');
+    slideEl.classList.remove('active');
   };
 
-  const setNextSlidePreview = (id) => {
-    const preview = document.querySelector(`#slider-${id}`);
-    preview.classList.add(previewClass);
-    setTimeout(() => {
-      setActiveSlide(id);
-      preview.classList.remove(previewClass);
-    }, 250);
+  const setActiveControl = (el, slideId) => {
+    if (el.classList.contains('preview-element')) el.classList.add('active');
+    const slideEl = document.querySelector(`#slider-${slideId}`);
+    slideEl.classList.add('active');
   };
 
-  const addActiveButton = (id) => {
-    const activeButton = document.querySelector(`[data-slide="${id}"]`);
-    activeButton.classList.add(activeClass);
+  const pausePrevVideo = (el) => {
+    const isActive = el.classList.contains('active');
+    if (!isActive) return;
+    const video = document.querySelector(`[data-video="${activeId}"]`);
+    if (!video) return;
+    video.pause();
   };
 
-  const addActiveBtn = (id) => {
-    const activeButton = document.querySelector(`[data-p="${id}"]`);
-    console.log(activeButton);
-    activeButton.classList.add(activeClass);
+  const puseVideo = (el, slideId) => {
+    const pauseBtn = el.dataset.stop;
+    const isActive = el.parentElement.parentElement.classList.contains('active');
+    if (!isActive || !pauseBtn) return;
+    const video = document.querySelector(`[data-video="${slideId}"]`);
+    if (!video) return;
+    video.pause();
   };
 
-  const getActiveButton = () => {
-    return document.querySelector('.preview-element.active');
-  };
-
-  const getActiveBtn = () => {
-    return document.querySelector('.btn.active');
-  };
-
-  const removeActiveButton = () => {
-    getActiveButton().classList.remove(activeClass);
-  };
-
-  const removeActiveBtn = () => {
-    getActiveBtn().classList.remove(activeClass);
+  const checkEl = (el) => {
+    return el.classList.contains('preview-element');
   };
 
   init();

@@ -27,7 +27,7 @@
   // === EVENTHANDLER =====
 
   const onScrollActiveLink = (e) => {
-    navOnScrollReveal(e);
+    // navOnScrollReveal(e);
     DOM.sectionEls.forEach((section, idx) => {
       let top = window.scrollY;
       let offset = section.offsetTop - 150;

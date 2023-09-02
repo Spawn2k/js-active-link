@@ -148,6 +148,9 @@ html * {
 .epic-slider .epic-slider-preview .preview-element:hover {
   background-color: rgb(218, 218, 218);
 }
+.epic-slider .epic-slider-preview .preview-element:hover .title-selection > svg {
+  scale: 1.2;
+}
 .epic-slider .epic-slider-preview .preview-element.active {
   background-color: rgb(218, 218, 218);
 }

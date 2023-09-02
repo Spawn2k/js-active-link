@@ -73,9 +73,15 @@
   };
 
   const setActiveControl = (el, slideId) => {
-    if (el.classList.contains('preview-element')) el.classList.add('active');
-    const slideEl = document.querySelector(`#slider-${slideId}`);
-    slideEl.classList.add('active');
+    // if (el.classList.contains('preview-element')) el.classList.add('active');
+    // const slideEl = document.querySelector(`#slider-${slideId}`);
+    // slideEl.classList.add('active');
+
+    setTimeout(() => {
+      if (el.classList.contains('preview-element')) el.classList.add('active');
+      const slideEl = document.querySelector(`#slider-${slideId}`);
+      slideEl.classList.add('active');
+    }, 250);
   };
 
   const pausePrevVideo = (el) => {

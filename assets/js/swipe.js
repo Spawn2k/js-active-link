@@ -1,139 +1,135 @@
-console.clear();
+'use strict';
 
-const sectionEls = document.querySelectorAll('.section');
-const headerEl = document.querySelector('.header');
-const navLinkEls = document.querySelectorAll('.nav-link');
-const popoverEl = document.querySelector('.popover');
-const contentEl = document.querySelector('.content');
-const arrowEl = document.querySelector('.arrow');
-const backgroundEl = document.querySelector('.background');
+(() => {
+  // === DOM & VARS =======
+  const DOM = {};
+  const sectionEls = document.querySelectorAll('.section');
+  const sectionJs = document.querySelector('.section-js');
 
-const sections = ['products', 'developers', 'company'];
+  const headerEl = document.querySelector('.header');
+  const navLinkEls = document.querySelectorAll('.nav-link');
+  const popoverEl = document.querySelector('.popover');
+  const contentEl = document.querySelector('.content');
+  const arrowEl = document.querySelector('.arrow');
+  const backgroundEl = document.querySelector('.background');
+  const videoEl = document.querySelectorAll('.slider-content video');
+  console.log(videoEl);
 
-// TODO: generate on the fly
-const dimensions = {
-  products: { width: 590, height: 280, x: 0 },
-  developers: { width: 390, height: 340, x: 100 },
-  company: { width: 300, height: 296, x: 200 },
-};
+  // === INIT =============
+  const init = () => {
+    window.addEventListener('load', onLoad);
 
-const popoverLeft = popoverEl.getBoundingClientRect().x;
+    navLinkEls.forEach((navLink, idx) => {
+      navLink.addEventListener('mouseenter', (event) => {
+        showSection(idx);
+      });
+    });
 
-navLinkEls.forEach((navLink) => {});
-
-const onLoad = (e) => {
-  const productsPos = sectionEls[0].getBoundingClientRect();
-  const navLinkElsPos = navLinkEls[0].getBoundingClientRect();
-
-  const productsCoord = {
-    left: productsPos.left,
-    top: productsPos.top,
-    width: productsPos.width,
-    height: productsPos.height,
+    headerEl.addEventListener('mouseleave', () => {
+      popoverEl.classList.remove('open');
+    });
   };
 
-  const navLinkElsCoord = {
-    width: navLinkElsPos.width,
-    height: navLinkElsPos.height,
-    left: navLinkElsPos.left,
-    top: navLinkElsPos.top,
-  };
+  // === EVENTHANDLER =====
+  const onLoad = (e) => {
+    const productsPos = sectionEls[0].getBoundingClientRect();
+    const navLinkElsPos = navLinkEls[0].getBoundingClientRect();
 
-  backgroundEl.style.transform = `
-  translateX(${navLinkElsCoord.left}px)
-  scaleX(${productsCoord.width / 100})
-  scaleY(${productsCoord.height / 100})
-`;
+    const productsCoord = {
+      left: productsPos.left,
+      top: productsPos.top,
+      width: productsPos.width,
+      height: productsPos.height,
+    };
 
-  contentEl.style.width = productsCoord.width + 'px';
-  contentEl.style.height = productsCoord.height + 'px';
+    const navLinkElsCoord = {
+      width: navLinkElsPos.width,
+      height: navLinkElsPos.height,
+      left: navLinkElsPos.left,
+      top: navLinkElsPos.top,
+    };
 
-  arrowEl.style.transform = `
-  translateX(${navLinkElsCoord.width / 2 + navLinkElsCoord.left}px)
-  rotate(45deg)`;
-
-  contentEl.style.transform = `translateX(${navLinkElsCoord.left}px)`;
-  console.log('load');
-};
-
-window.addEventListener('load', onLoad);
-
-// Set initial arrow position
-arrowEl.style.transform = `
-  translateX(${dimensions.products.arrowX}px)
-  rotate(45deg)`;
-
-function showSection(idx) {
-  popoverEl.classList.add('open');
-  sectionEls.forEach((el) => el.classList.remove('active'));
-  sectionEls[idx].classList.add('active');
-  const productsPos = sectionEls[idx].getBoundingClientRect();
-  const navLinkElsPos = navLinkEls[idx].getBoundingClientRect();
-
-  const productsCoord = {
-    left: productsPos.left,
-    top: productsPos.top,
-    width: productsPos.width,
-    height: productsPos.height,
-  };
-
-  const navLinkElsCoord = {
-    width: navLinkElsPos.width,
-    height: navLinkElsPos.height,
-    left: navLinkElsPos.left,
-    top: navLinkElsPos.top,
-  };
-
-  // backgroundEl.style.transition = `0s`;
-
-  let arrowPos = navLinkElsCoord.width / 2 + navLinkElsCoord.left;
-
-  if (idx === 1) {
-    const jsCenter = navLinkElsCoord.width / 2;
-    const contentCenter = productsCoord.width / 2;
-    navLinkElsCoord.left = navLinkElsCoord.left + jsCenter - contentCenter;
-    arrowPos = navLinkElsCoord.left + contentCenter;
-  }
-
-  if (idx === 2) {
-    console.log('idx2');
-    let left = navLinkElsCoord.width + navLinkElsCoord.left - productsCoord.width;
-    navLinkElsCoord.left = left;
-  }
-
-  // Position arrow
-  arrowEl.style.transform = `
-    translateX(${arrowPos}px)
-    rotate(45deg)`;
-
-  // Resize and position background
-  backgroundEl.style.transform = `
+    backgroundEl.style.transform = `
     translateX(${navLinkElsCoord.left}px)
     scaleX(${productsCoord.width / 100})
     scaleY(${productsCoord.height / 100})
   `;
-  // backgroundEl.style.transform = `
-  //   translateX(${dimensions[section].x}px)
-  //   scaleX(${dimensions[section].width / dimensions['products'].width})
-  //   scaleY(${dimensions[section].height / dimensions['products'].height})
-  // `;
 
-  // Resize and position content
-  contentEl.style.width = productsCoord.width + 'px';
-  contentEl.style.height = productsCoord.height + 'px';
+    contentEl.style.width = productsCoord.width + 'px';
+    contentEl.style.height = productsCoord.height + 'px';
 
-  contentEl.style.transform = `translateX(${navLinkElsCoord.left}px)`;
+    arrowEl.style.transform = `
+    translateX(${navLinkElsCoord.width / 2 + navLinkElsCoord.left}px)
+    rotate(45deg)`;
 
-  // size container? If we remove from CSS and do everything dynamically.
-}
+    contentEl.style.transform = `translateX(${navLinkElsCoord.left}px)`;
+  };
 
-navLinkEls.forEach((navLink, idx) => {
-  navLink.addEventListener('mouseenter', (event) => {
-    showSection(idx);
-  });
-});
+  function showSection(idx) {
+    popoverEl.classList.add('open');
+    sectionEls.forEach((el) => el.classList.remove('active'));
+    sectionEls[idx].classList.add('active');
+    const productsPos = sectionEls[idx].getBoundingClientRect();
+    const navLinkElsPos = navLinkEls[idx].getBoundingClientRect();
 
-headerEl.addEventListener('mouseleave', () => {
-  console.log('leave');
-  popoverEl.classList.remove('open');
-});
+    const productsCoord = {
+      left: productsPos.left,
+      top: productsPos.top,
+      width: productsPos.width,
+      height: productsPos.height,
+    };
+
+    const navLinkElsCoord = {
+      width: navLinkElsPos.width,
+      height: navLinkElsPos.height,
+      left: navLinkElsPos.left,
+      top: navLinkElsPos.top,
+    };
+
+    let arrowPos = navLinkElsCoord.width / 2 + navLinkElsCoord.left;
+
+    if (idx === 1) {
+      const jsCenter = navLinkElsCoord.width / 2;
+      const contentCenter = productsCoord.width / 2;
+      navLinkElsCoord.left = navLinkElsCoord.left + jsCenter - contentCenter;
+      arrowPos = navLinkElsCoord.left + contentCenter;
+    }
+
+    if (idx === 2) {
+      let left = navLinkElsCoord.width + navLinkElsCoord.left - productsCoord.width;
+      navLinkElsCoord.left = left;
+    }
+
+    // Position arrow
+    arrowEl.style.transform = `
+      translateX(${arrowPos}px)
+      rotate(45deg)`;
+
+    // Resize and position background
+    backgroundEl.style.transform = `
+      translateX(${navLinkElsCoord.left}px)
+      scaleX(${productsCoord.width / 100})
+      scaleY(${productsCoord.height / 100})
+    `;
+
+    // Resize and position content
+    contentEl.style.width = productsCoord.width + 'px';
+    contentEl.style.height = productsCoord.height + 'px';
+
+    contentEl.style.transform = `translateX(${navLinkElsCoord.left}px)`;
+
+    sectionEls.forEach((section) => {
+      if (section.classList.contains('active')) {
+        videoEl.forEach((video) => {
+          video.pause();
+        });
+      }
+    });
+  }
+
+  // === XHR/FETCH ========
+
+  // === FUNCTIONS ========
+
+  init();
+})();

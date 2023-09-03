@@ -7,7 +7,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rollup --config",
-    "sass": "sass assets/scss/card-v2.scss:assets/css/card-v2.css -w --style=expanded"
+    "sass": "sass assets/scss/swipe.scss:assets/css/swipe.css -w --style=expanded"
   },
   "repository": {
     "type": "git",

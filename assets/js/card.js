@@ -6,7 +6,7 @@
   DOM.titleBgEl = document.querySelector('.title-bg');
   DOM.bgEl = document.querySelector('.content-bg');
   DOM.h3El = Array.from(document.querySelectorAll('h3'));
-  DOM.svgEl = document.querySelector('svg');
+  DOM.svgEl = document.querySelector('svg.react-rotate');
   DOM.contentTextEls = document.querySelectorAll('.content-text');
   console.log(DOM);
 
@@ -94,7 +94,7 @@
       width: currElCoord.width + 16,
       height: currElCoord.height + 59,
       top: currEl.offsetTop - 27.5,
-      left: currEl.offsetLeft - 15,
+      left: currEl.offsetLeft - 13.9,
     };
 
     DOM.titleBgEl.style.width = `${coord.width}px`;

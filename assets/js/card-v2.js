@@ -6,6 +6,7 @@
   DOM.videoEl = document.querySelectorAll('video');
   DOM.titleContainerEls = document.querySelectorAll('.preview-element');
   DOM.processEl = document.querySelectorAll('.progress-bar');
+
   let activeId = 1;
 
   // === INIT =============
@@ -18,7 +19,7 @@
     DOM.videoEl.forEach((video, idx) => {
       video.addEventListener('timeupdate', (e) => {
         const percentGym = (100 / DOM.videoEl[idx].duration) * DOM.videoEl[idx].currentTime;
-        DOM.processEl[idx].style.setProperty('--percent', percentGym - 5.5 + '%');
+        DOM.processEl[idx].style.setProperty('--percent', percentGym - 5 + '%');
       });
     });
   };
@@ -73,15 +74,11 @@
   };
 
   const setActiveControl = (el, slideId) => {
-    // if (el.classList.contains('preview-element')) el.classList.add('active');
-    // const slideEl = document.querySelector(`#slider-${slideId}`);
-    // slideEl.classList.add('active');
-
     setTimeout(() => {
       if (el.classList.contains('preview-element')) el.classList.add('active');
       const slideEl = document.querySelector(`#slider-${slideId}`);
       slideEl.classList.add('active');
-    }, 250);
+    }, 200);
   };
 
   const pausePrevVideo = (el) => {

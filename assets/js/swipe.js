@@ -4,8 +4,6 @@
   // === DOM & VARS =======
   const DOM = {};
   const sectionEls = document.querySelectorAll('.section');
-  const sectionJs = document.querySelector('.section-js');
-
   const headerEl = document.querySelector('.header');
   const navLinkEls = document.querySelectorAll('.nav-link');
   const popoverEl = document.querySelector('.popover');
@@ -13,7 +11,6 @@
   const arrowEl = document.querySelector('.arrow');
   const backgroundEl = document.querySelector('.background');
   const videoEl = document.querySelectorAll('.slider-content video');
-  console.log(videoEl);
 
   // === INIT =============
   const init = () => {

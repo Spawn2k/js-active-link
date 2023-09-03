@@ -39,8 +39,9 @@
     if (currEl.classList.contains('preview-element')) {
       setActiveControl(currEl, slideId);
     }
-
     pausePrevVideo(currEl);
+
+    // console.log(currEl);
 
     if (currEl.classList.contains('preview-element')) {
       activeId = slideId;
@@ -74,10 +75,12 @@
   };
 
   const setActiveControl = (el, slideId) => {
+    el.classList.add('active');
     setTimeout(() => {
-      if (el.classList.contains('preview-element')) el.classList.add('active');
-      const slideEl = document.querySelector(`#slider-${slideId}`);
-      slideEl.classList.add('active');
+      if (el.classList.contains('preview-element')) {
+        const slideEl = document.querySelector(`#slider-${slideId}`);
+        slideEl.classList.add('active');
+      }
     }, 200);
   };
 

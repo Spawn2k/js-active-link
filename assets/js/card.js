@@ -103,37 +103,29 @@
   };
 
   const setPositionContent = (idx) => {
+    const timeOffset = 200;
     if (idx === 0) {
-      DOM.contentTextEls[idx].classList.add('active-text');
-      DOM.contentTextEls[idx].classList.remove('reset-text');
-
-      DOM.contentTextEls[1].classList.add('reset-up');
-      DOM.contentTextEls[1].classList.remove('active-text', 'reset-down');
-
+      setTimeout(() => {
+        DOM.contentTextEls[idx].classList.add('active-text');
+      }, timeOffset);
+      DOM.contentTextEls[1].classList.remove('active-text');
       DOM.contentTextEls[2].classList.remove('active-text');
-      DOM.contentTextEls[2].classList.add('reset-up');
     }
 
     if (idx === 1) {
-      DOM.contentTextEls[0].classList.add('reset-text');
       DOM.contentTextEls[0].classList.remove('active-text');
-
-      DOM.contentTextEls[idx].classList.add('active-text');
-      DOM.contentTextEls[idx].classList.remove('reset-up', 'reset-down');
-
+      setTimeout(() => {
+        DOM.contentTextEls[idx].classList.add('active-text');
+      }, timeOffset);
       DOM.contentTextEls[2].classList.remove('active-text');
-      DOM.contentTextEls[2].classList.add('reset-up');
     }
 
     if (idx === 2) {
-      DOM.contentTextEls[0].classList.add('reset-text');
       DOM.contentTextEls[0].classList.remove('active-text');
-
-      DOM.contentTextEls[1].classList.add('reset-down');
-      DOM.contentTextEls[1].classList.remove('active-text', 'reset-up');
-
-      DOM.contentTextEls[idx].classList.remove('reset-up');
-      DOM.contentTextEls[idx].classList.add('active-text');
+      DOM.contentTextEls[1].classList.remove('active-text');
+      setTimeout(() => {
+        DOM.contentTextEls[idx].classList.add('active-text');
+      }, timeOffset);
     }
   };
 

@@ -8,7 +8,6 @@
   DOM.h3El = Array.from(document.querySelectorAll('h3'));
   DOM.svgEl = document.querySelector('svg.react-rotate');
   DOM.contentTextEls = document.querySelectorAll('.content-text');
-  console.log(DOM);
 
   let rotate = 0;
   // === INIT =============

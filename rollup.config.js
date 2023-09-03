@@ -4,14 +4,14 @@ import terser from '@rollup/plugin-terser';
 import postcss from 'postcss';
 import autoprefixer from 'autoprefixer';
 export default {
-  input: 'assets/js/main.js',
+  input: 'assets/js/swipe.js',
   output: [
     {
-      file: 'assets/js/main-expanded.js',
+      file: 'assets/js/swipe-dist-expanded.js',
       format: 'iife',
     },
     {
-      file: 'assets/js/main.js',
+      file: 'assets/js/swipe-dist.js',
       format: 'iife',
       name: 'version',
       plugins: [terser()],
@@ -22,7 +22,7 @@ export default {
     scss({
       processor: () => postcss([autoprefixer()]),
       sourceMap: true,
-      fileName: 'assets/css/main.css',
+      fileName: 'swipe-dist.css',
       outputStyle: 'compressed',
     }),
   ],
